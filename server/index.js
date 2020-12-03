@@ -1,7 +1,9 @@
+require('dotenv').config()
 const express = require('express');
 const session = require('express-session');
 const massive = require('massive');
 const app = express();
+const authCtrl = require('./authController');
 
 const { CONNECTION_STRING, SERVER_PORT, SESSION_SECRET } = process.env
 
@@ -15,8 +17,10 @@ app.use(session({
 }))
 
 //TODO ENDPOINT GO HERE
-
-
+app.post('/auth/register', authCtrl.register);
+app.post('/auth/login', authCtrl.login);
+app.get('/auth/me', authCtrl.getUser);
+app.delete('/auth/logout', authCtrl.logout)
 
 massive({
   connectionString: CONNECTION_STRING,
