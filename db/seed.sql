@@ -1,3 +1,12 @@
+DROP TABLE nick_name;
+DROP TABLE task;
+DROP TABLE game_group;
+DROP TABLE traitor_users;
+DROP TABLE player_roles;
+DROP TABLE status; 
+
+-- ABOVE IS THE ORDER TO DROP THE TABLES
+
 CREATE TABLE player_roles (
 player_role_id SERIAL PRIMARY KEY,
 role VARCHAR(100));
@@ -27,17 +36,16 @@ INSERT INTO status
 VALUES
 ('INITIAL'), ('INCOMPLETE'), ('COMPLETE');
 
-CREATE TABLE game_group (
-game_group_id SERIAL PRIMARY KEY,
-group_name VARCHAR(100) NOT NULL UNIQUE,
-game_status INT REFERENCES status(status_id) NOT NULL DEFAULT 1,
-group_password_hash  VARCHAR(300) NOT NULL,
-
+CREATE TABLE traitor_missions (
+traitor_mission_id SERIAL PRIMARY KEY,
+mission_name VARCHAR(100) NOT NULL UNIQUE,
+mission_status INT REFERENCES status(status_id) NOT NULL DEFAULT 1,
+mission_secret_code_hash  VARCHAR(300) NOT NULL,
 traitor_users_id INT REFERENCES traitor_users(traitor_users_id) NOT NULL );
 
-CREATE TABLE task (
+CREATE TABLE tasks (
 task_id SERIAL PRIMARY KEY,
-game_group_id INT REFERENCES game_group(game_group_id) NOT NULL,
+traitor_mission_id INT REFERENCES traitor_missions(traitor_mission_id) NOT NULL,
 task_title VARCHAR(20) NOT NULL,
 task_description VARCHAR(300),
 assigned_to INT REFERENCES traitor_users(traitor_users_id) DEFAULT NULL,
