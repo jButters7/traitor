@@ -19,7 +19,7 @@ const Landing = (props) => {
   const joinMission = () => {
     axios.post('/api/mission/join', { missionName, secretCode }).then(res => {
       props.joinMission(res.data.traitor_mission_id);
-      props.history.push(`/gamegroup/${res.data.traitor_mission_id}`)
+      props.history.push(`/mission/${res.data.traitor_mission_id}`)
     })
   }
 
@@ -38,8 +38,6 @@ const Landing = (props) => {
         <input placeholder="Mission Name" onChange={(e) => setMissionName(e.target.value)}></input>
         <input placeholder="Create Secret Code" onChange={(e) => setSecretCode(e.target.value)}></input>
         <button onClick={() => createMission()}>Create Mission</button>
-
-
       </div>
     </div>
   )

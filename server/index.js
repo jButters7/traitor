@@ -5,6 +5,7 @@ const massive = require('massive');
 const app = express();
 const authCtrl = require('./authController');
 const missionCtrl = require('./missionController');
+const taskCtrl = require('./taskController');
 
 const { CONNECTION_STRING, SERVER_PORT, SESSION_SECRET } = process.env
 
@@ -25,6 +26,9 @@ app.delete('/auth/logout', authCtrl.logout);
 
 app.post('/api/mission/create', missionCtrl.createMission);
 app.post('/api/mission/join', missionCtrl.joinMission);
+
+app.get('/api/mission/tasks/:missionId', taskCtrl.getMissionTasks);
+app.post('/api/mission/tasks/:missionId', taskCtrl.createMissionTask);
 
 massive({
   connectionString: CONNECTION_STRING,
