@@ -1,18 +1,26 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { connect } from 'react-redux';
+import { joinMission } from '../../ducks/authReducer';
 
-const Landing = () => {
-
+const Landing = (props) => {
+  console.log(props)
   const [missionName, setMissionName] = useState('');
   const [secretCode, setSecretCode] = useState('');
 
   const createMission = () => {
-    axios.post('/api/mission', { missionName, secretCode })
-    console.log(missionName, secretCode)
+    const { traitorUserId } = props
+    axios.post('/api/mission/create', { missionName, secretCode, traitorUserId }).then(res => {
+      props.joinMission(res.data.traitor_mission_id);
+      props.history.push(`/gamegroup/${res.data.traitor_mission_id}`)
+    })
   }
 
   const joinMission = () => {
-    console.log(missionName, secretCode)
+    axios.post('/api/mission/join', { missionName, secretCode }).then(res => {
+      props.joinMission(res.data.traitor_mission_id);
+      props.history.push(`/gamegroup/${res.data.traitor_mission_id}`)
+    })
   }
 
   return (
@@ -37,4 +45,6 @@ const Landing = () => {
   )
 }
 
-export default Landing;
+const mapStateToProps = reduxState => reduxState
+
+export default connect(mapStateToProps, { joinMission })(Landing);
