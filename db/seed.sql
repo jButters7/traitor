@@ -1,6 +1,6 @@
 DROP TABLE nick_name;
 DROP TABLE task;
-DROP TABLE game_group;
+DROP TABLE traitor_missions;
 DROP TABLE traitor_users;
 DROP TABLE player_roles;
 DROP TABLE status; 
@@ -48,7 +48,13 @@ task_id SERIAL PRIMARY KEY,
 traitor_mission_id INT REFERENCES traitor_missions(traitor_mission_id) NOT NULL,
 task_title VARCHAR(20) NOT NULL,
 task_description VARCHAR(300),
-assigned_to INT REFERENCES traitor_users(traitor_users_id) DEFAULT NULL,
-status INT REFERENCES status(status_id) NOT NULL DEFAULT 1,
-comrades_needed INT );
+comrades_needed INT NOT NULL );
+
+CREATE TABLE traitor_users_tasks (
+traitor_users_tasks SERIAL PRIMARY KEY,
+task_id INT REFERENCES tasks(task_id) NOT NULL,
+status INT REFERENCES status(status_id) NOT NULL DEFAULT 1, 
+assigned_to INT REFERENCES traitor_users(traitor_users_id) DEFAULT NULL
+);
+
 

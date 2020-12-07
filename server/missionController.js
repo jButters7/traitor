@@ -26,6 +26,8 @@ module.exports = {
 
     const [mission] = await db.check_mission_name([missionName]);
 
+    console.log(mission)
+
     if (!mission) {
       return res.status(404).send('Mission not found');
     }

@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { joinMission } from '../../ducks/authReducer';
 
 const Landing = (props) => {
-  console.log(props)
   const [missionName, setMissionName] = useState('');
   const [secretCode, setSecretCode] = useState('');
 
@@ -12,12 +11,13 @@ const Landing = (props) => {
     const { traitorUserId } = props
     axios.post('/api/mission/create', { missionName, secretCode, traitorUserId }).then(res => {
       props.joinMission(res.data.traitor_mission_id);
-      props.history.push(`/gamegroup/${res.data.traitor_mission_id}`)
+      props.history.push(`/mission/${res.data.traitor_mission_id}`)
     })
   }
 
   const joinMission = () => {
     axios.post('/api/mission/join', { missionName, secretCode }).then(res => {
+      console.log(res.data)
       props.joinMission(res.data.traitor_mission_id);
       props.history.push(`/mission/${res.data.traitor_mission_id}`)
     })
