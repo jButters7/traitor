@@ -17,14 +17,13 @@ const MissionTasks = (props) => {
 
   const createMissionTask = () => {
     axios.post(`/api/mission/tasks/${props.missionId}`, { taskTitle, taskDescription, comradesNeeded }).then(res =>
-      console.log(res.data)
+      setTasks(res.data)
     )
   }
 
   return (
     <div>
       <button>Begin Mission</button>
-
       {tasks.map(e => {
         <div>{e.task_title}</div>
       })}

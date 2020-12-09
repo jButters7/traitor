@@ -20,7 +20,9 @@ module.exports = {
     // for (let i = 0; i < comradesNeeded; i++) {
     // }
 
-    res.status(201).send('newTask')
+    const allMissionTasks = await db.get_mission_tasks(missionId)
+
+    res.status(201).send(allMissionTasks)
   },
 
   editMissionTask: async (req, res) => {
