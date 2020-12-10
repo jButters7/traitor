@@ -29,6 +29,7 @@ app.post('/api/mission/join', missionCtrl.joinMission);
 
 app.get('/api/mission/tasks/:missionId', taskCtrl.getMissionTasks);
 app.post('/api/mission/tasks/:missionId', taskCtrl.createMissionTask);
+app.put('/api/mission/tasks/:taskId', taskCtrl.editMissionTask);
 
 massive({
   connectionString: CONNECTION_STRING,

@@ -26,9 +26,12 @@ module.exports = {
   editMissionTask: async (req, res) => {
     const db = req.app.get('db');
 
-    const { missionId } = req.params;
+    const { taskId } = req.params;
     const { taskTitle, taskDescription, comradesNeeded } = req.body;
 
+    await db.edit_mission_task(taskId, taskTitle, taskDescription, comradesNeeded);
+
+    const allMissionTasks = await db.get_mission_tasks(missionId)
 
   },
 

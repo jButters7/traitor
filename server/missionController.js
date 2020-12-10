@@ -26,23 +26,17 @@ module.exports = {
 
     const [mission] = await db.check_mission_name([missionName]);
 
-    console.log(mission)
-
     if (!mission) {
-      console.log('hit')
       return res.status(404).send('Mission not found');
     }
 
     const isAuthenticated = bcrypt.compareSync(secretCode, mission.mission_secret_code_hash);
-    console.log('hit2')
 
     if (!isAuthenticated) {
-      console.log('hit3')
       return res.status(403).send('Incorrect mission name or secret code');
     }
 
     delete mission.mission_secret_code_hash;
-    console.log('hit4')
 
     res.status(200).send(mission);
   },
