@@ -18,8 +18,9 @@ module.exports = {
 
     const [newTask] = await db.create_mission_task(missionId, taskTitle, taskDescription, comradesNeeded);
 
-    res.status(201).send('newTask')
+    const allMissionTasks = await db.get_mission_tasks(missionId)
 
+    res.status(201).send(allMissionTasks)
   },
 
   editMissionTask: async (req, res) => {
