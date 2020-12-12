@@ -41,7 +41,6 @@ const MissionTasks = (props) => {
 
   return (
     <div>
-      <button>Begin Mission</button>
       {tasks.map(element => {
         return (
           <Task key={element.task_id} task={element} />

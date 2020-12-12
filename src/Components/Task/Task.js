@@ -4,9 +4,9 @@ import axios from 'axios';
 
 
 const Task = (props) => {
-  const [taskTitle, setTaskTitle] = useState('');
-  const [taskDescription, setTaskDescription] = useState('');
-  const [comradesNeeded, setComradesNeeded] = useState(null);
+  const [taskTitle, setTaskTitle] = useState(props.task.task_title);
+  const [taskDescription, setTaskDescription] = useState(props.task.task_description);
+  const [comradesNeeded, setComradesNeeded] = useState(props.task.comrades_needed);
   const [isEditTask, setIsEditTask] = useState(false);
 
   const editTask = (taskId) => {
@@ -17,6 +17,11 @@ const Task = (props) => {
     })
   };
 
+  const deleteMissionTask = (taskId) => {
+    axios.delete(`/api/mission/tasks/${taskId}`).then(res => {
+      console.log(res.status)
+    })
+  }
 
   return (
     <div>
@@ -26,13 +31,13 @@ const Task = (props) => {
           <div>{props.task.task_description}</div>
           <div>{props.task.comrades_needed}</div>
           <button onClick={() => setIsEditTask(true)}>Edit</button>
-          <button>Delete</button>
+          <button onClick={() => deleteMissionTask(props.task.task_id)}>Delete</button>
         </div>
         :
         <div>
-          <input onChange={(e) => setTaskTitle(e.target.value)} value={props.task.task_title}></input>
-          <input onChange={(e) => setTaskDescription(e.target.value)} value={props.task.task_description}></input>
-          <input onChange={(e) => setComradesNeeded(e.target.value)} value={props.task.comrades_needed}></input>
+          <input onChange={(e) => setTaskTitle(e.target.value)} value={taskTitle}></input>
+          <input onChange={(e) => setTaskDescription(e.target.value)} value={taskDescription}></input>
+          <input value={comradesNeeded} onChange={(e) => setComradesNeeded(e.target.value)}></input>
           <button onClick={() => editTask(props.task.task_id)}>Save</button>
           <button onClick={() => setIsEditTask(false)}>Cancel</button>
         </div>
