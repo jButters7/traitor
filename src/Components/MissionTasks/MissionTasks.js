@@ -2,6 +2,7 @@
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import Task from '../Task/Task';
+import PlayersJoined from '../PlayersJoined/PlayersJoined';
 
 
 const MissionTasks = (props) => {
@@ -11,6 +12,7 @@ const MissionTasks = (props) => {
   const [comradesNeeded, setComradesNeeded] = useState(null);
   const [inputNewTask, setInputNewTask] = useState(false);
   const [isEditTask, setIsEditTask] = useState(false);
+
 
   useEffect(() => {
     axios.get(`/api/mission/tasks/${props.missionId}`).then(res => {
@@ -57,6 +59,11 @@ const MissionTasks = (props) => {
       </div>
         :
         <button onClick={() => setInputNewTask(true)}>New Task</button>}
+
+      <div>
+        {console.log(props)}
+        <PlayersJoined missionId={props.params.missionId} />
+      </div>
     </div>
   )
 }

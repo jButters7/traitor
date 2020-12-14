@@ -22,6 +22,8 @@ module.exports = {
 
   joinMission: async (req, res) => {
     const db = req.app.get('db');
+
+    const { userId } = req.params;
     const { missionName, secretCode } = req.body;
 
     const [mission] = await db.check_mission_name([missionName]);
@@ -37,6 +39,8 @@ module.exports = {
     }
 
     delete mission.mission_secret_code_hash;
+
+    await db.join_mission(userId, mission.traitor_mission_id)
 
     res.status(200).send(mission);
   },
