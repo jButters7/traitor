@@ -7,6 +7,16 @@ const authCtrl = require('./authController');
 const missionCtrl = require('./missionController');
 const taskCtrl = require('./taskController');
 
+//Socket Code Below
+const server = require('http').createServer();
+const io = require('socket.io')(server);
+io.on('connection', client => {
+  client.on('event', data => { /* … */ });
+  client.on('disconnect', () => { /* … */ });
+});
+server.listen(3000);
+//Socket Code Above
+
 const { CONNECTION_STRING, SERVER_PORT, SESSION_SECRET } = process.env
 
 app.use(express.json());

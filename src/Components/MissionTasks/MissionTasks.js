@@ -23,7 +23,6 @@ const MissionTasks = (props) => {
 
   return (
     <div>
-      <button>Begin Mission</button>
       {tasks.map(e => {
         <div>{e.task_title}</div>
       })}
