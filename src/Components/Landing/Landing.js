@@ -16,7 +16,7 @@ const Landing = (props) => {
   }
 
   const joinMission = () => {
-    axios.post('/api/mission/join', { missionName, secretCode }).then(res => {
+    axios.post(`/api/mission/join/${props.traitorUserId}`, { missionName, secretCode }).then(res => {
       console.log(res.data)
       props.joinMission(res.data.traitor_mission_id);
       props.history.push(`/mission/${res.data.traitor_mission_id}`)
